@@ -24,7 +24,7 @@
     </div>
     <div v-if="settings.showSetup" class="clock-setup">
       <div class="text-align-center">
-        <input type="number" pattern="\d*" class="minutes" v-model="settings.right.minutes">:<input type="number" pattern="\d*" v-model="settings.right.seconds">
+        <input type="number" pattern="\d*" class="minutes" v-model="settings.right.minutes">:<input type="number" pattern="\d*" class="seconds" v-model="settings.right.seconds">
       </div>
     </div>
     <div v-else class="clock" @click="startLeft">
