@@ -1,11 +1,11 @@
 <template>
-  <div class="orientation">
+  <div v-if="!settings.showSetup" class="orientation">
       Please turn your device to landscape mode
   </div>
   <div class="container">
     <div v-if="settings.showSetup" class="clock-setup">
       <div class="text-align-center">
-        <input type="number" class="minutes" v-model="settings.left.minutes">:<input type="number" v-model="settings.left.seconds">
+        <input type="number" pattern="\d*" class="minutes" v-model="settings.left.minutes">:<input type="number" pattern="\d*" class="seconds" v-model="settings.left.seconds">
       </div>
     </div>
     <div v-else class="clock" @click="startRight">
