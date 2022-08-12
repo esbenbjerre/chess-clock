@@ -13,11 +13,14 @@
         {{ leftClock() }}
       </span>
     </div>
-    <div>
+    <div v-if="settings.showSetup" class="setup">
       <button @click="changeTheme">{{ theme.charAt(0).toUpperCase() + theme.slice(1) }}</button>
-      <button @click="toggleSetup">Setup</button>
+      <button @click="toggleSetup">Back</button>
+    </div>
+    <div v-else class="setup">
       <button @click="pause">Pause</button>
       <button @click="reset">Reset</button>
+      <button @click="toggleSetup">Setup</button>
     </div>
     <div v-if="settings.showSetup" class="clock-setup">
       <div class="text-align-center">

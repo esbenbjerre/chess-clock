@@ -85,6 +85,26 @@ body {
   text-align: center;
 }
 
+.setup {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  align-self: center;
+  width: 100%;
+  height: 50%;
+  font-size: 4vh;
+}
+
+button {
+  display: block;
+  width: 100%;
+  border: 0;
+  background-color: inherit;
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
 input {
   display: inline;
   width: 33%;
