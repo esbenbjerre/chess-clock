@@ -2,32 +2,40 @@
   <div v-if="!settings.showSetup" class="orientation">
       Please turn your device to landscape mode
   </div>
-  <div class="container">
-    <div v-if="settings.showSetup" class="clock-setup">
+  <div v-if="settings.showSetup" class="container two-columns">
+    <div class="setup-description"><label for="left-minutes">Left</label></div>
+    <div class="clock-setup">
       <div class="text-align-center">
-        <input type="number" pattern="\d*" class="minutes" v-model="settings.left.minutes">:<input type="number" pattern="\d*" class="seconds" v-model="settings.left.seconds">
+        <input type="number" pattern="\d*" id="left-minutes" class="minutes" v-model="settings.left.minutes">:<input type="number" pattern="\d*" class="seconds" v-model="settings.left.seconds">
       </div>
     </div>
-    <div v-else class="clock" @click="startRight">
+    <div class="setup-description"><label for="right-minutes">Right</label></div>
+    <div class="clock-setup">
+      <div class="text-align-center">
+        <input type="number" pattern="\d*" id="right-minutes" class="minutes" v-model="settings.right.minutes">:<input type="number" pattern="\d*" class="seconds" v-model="settings.right.seconds">
+      </div>
+    </div>
+    <div/>
+    <div class="setup-description">
+      <button @click="changeTheme">{{ theme }}</button>
+    </div>
+    <div/>
+    <div>
+      <button @click="toggleSetup">Back</button>
+    </div>
+  </div>
+  <div v-else class="container three-columns">
+    <div class="clock" @click="startRight">
       <span class="left-clock place-self-center">
         {{ leftClock() }}
       </span>
     </div>
-    <div v-if="settings.showSetup" class="setup">
-      <button @click="changeTheme">{{ theme.charAt(0).toUpperCase() + theme.slice(1) }}</button>
-      <button @click="toggleSetup">Back</button>
-    </div>
-    <div v-else class="setup">
+    <div class="setup">
       <button @click="pause">Pause</button>
       <button @click="reset">Reset</button>
       <button @click="toggleSetup">Setup</button>
     </div>
-    <div v-if="settings.showSetup" class="clock-setup">
-      <div class="text-align-center">
-        <input type="number" pattern="\d*" class="minutes" v-model="settings.right.minutes">:<input type="number" pattern="\d*" class="seconds" v-model="settings.right.seconds">
-      </div>
-    </div>
-    <div v-else class="clock" @click="startLeft">
+    <div class="clock" @click="startLeft">
       <span class="right-clock place-self-center">
         {{ rightClock() }}
       </span>
@@ -150,6 +158,7 @@ function changeTheme() {
 }
 
 function toggleSetup() {
+  pause()
   settings.value.showSetup = !settings.value.showSetup
   left.value.minutes = settings.value.left.minutes
   left.value.seconds = settings.value.left.seconds
