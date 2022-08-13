@@ -162,5 +162,7 @@ function toggleSetup() {
   settings.value.showSetup = !settings.value.showSetup
   left.value.minutes = settings.value.left.minutes
   left.value.seconds = settings.value.left.seconds
+  right.value.minutes = settings.value.right.minutes
+  right.value.seconds = settings.value.right.seconds
 }
 </script>
