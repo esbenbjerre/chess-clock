@@ -17,10 +17,14 @@
     </div>
     <div/>
     <div class="setup-description">
+      <button @click="toggleSound">{{ sound }}</button>
+    </div>
+    <div/>
+    <div class="setup-description">
       <button @click="changeTheme">{{ theme }}</button>
     </div>
     <div/>
-    <div>
+    <div class="setup-description">
       <button @click="toggleSetup">Back</button>
     </div>
   </div>
@@ -46,12 +50,15 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { Ref } from 'vue'
+import click from './assets/click.mp3'
 
 type Clock = {
   minutes: number
   seconds: number
   milliseconds: number
 }
+
+const audio = new Audio(click)
 
 const defaultMinutes = 7
 
@@ -65,6 +72,7 @@ const settings = ref({
     seconds: 0
     },
   theme: 'light',
+  sound: true,
   showSetup: false
 })
 const left = ref({
@@ -112,13 +120,20 @@ const rightTime = computed({
 const theme = computed({
   get() {
     if (settings.value.theme === 'light') {
-      return 'Dark'
+      return 'Dark ☾'
     }
-    return 'Light'
+    return 'Light ☼'
   },
   set(theme: string) {
     settings.value.theme = theme
-  },
+  }
+})
+
+const sound = computed(() => {
+  if (settings.value.sound === true) {
+      return 'Sound on'
+    }
+  return 'Sound off'
 })
 
 function toString(clock: Ref<Clock>) {
@@ -164,11 +179,19 @@ function reset() {
 }
 
 function startLeft() {
+  if (settings.value.sound) {
+    audio.load()
+    audio.play()
+  }
   pause()
   timer = setInterval(() => tick(left.value), 10)
 }
 
 function startRight() {
+  if (settings.value.sound) {
+    audio.load()
+    audio.play()
+  }
   pause()
   timer = setInterval(() => tick(right.value), 10)
 }
@@ -194,5 +217,9 @@ function toggleSetup() {
   left.value.seconds = settings.value.left.seconds
   right.value.minutes = settings.value.right.minutes
   right.value.seconds = settings.value.right.seconds
+}
+
+function toggleSound() {
+  settings.value.sound = !settings.value.sound
 }
 </script>
