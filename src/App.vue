@@ -3,16 +3,16 @@
       Please turn your device to landscape mode
   </div>
   <div v-if="settings.showSetup" class="container two-columns">
-    <div class="setup-description"><label for="left-minutes">Left</label></div>
+    <div class="setup-description"><label for="left-time">Left</label></div>
     <div class="clock-setup">
       <div class="text-align-center">
-        <input type="number" pattern="\d*" id="left-minutes" class="minutes" v-model="settings.left.minutes">:<input type="number" pattern="\d*" class="seconds" v-model="settings.left.seconds">
+        <input type="text" id="left-time" class="text-align-center" v-model="leftTime">
       </div>
     </div>
-    <div class="setup-description"><label for="right-minutes">Right</label></div>
+    <div class="setup-description"><label for="right-time">Right</label></div>
     <div class="clock-setup">
       <div class="text-align-center">
-        <input type="number" pattern="\d*" id="right-minutes" class="minutes" v-model="settings.right.minutes">:<input type="number" pattern="\d*" class="seconds" v-model="settings.right.seconds">
+        <input type="text" id="right-time" class="text-align-center" v-model="rightTime">
       </div>
     </div>
     <div/>
@@ -78,6 +78,36 @@ const right = ref({
   milliseconds: 0
 })
 let timer = 0
+
+function validTime(time: string): boolean {
+  return (/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/).test(time)
+}
+
+const leftTime = computed({
+  get() {
+    return toString(left)
+  },
+  set(time: string) {
+    if (validTime(time)) {
+      const timeSplit = time.split(':')
+      settings.value.left.minutes = Number(timeSplit[0])
+      settings.value.left.seconds = Number(timeSplit[1])
+    }
+  }
+})
+
+const rightTime = computed({
+  get() {
+    return toString(right)
+  },
+  set(time: string) {
+    if (validTime(time)) {
+      const timeSplit = time.split(':')
+      settings.value.right.minutes = Number(timeSplit[0])
+      settings.value.right.seconds = Number(timeSplit[1])
+    }
+  }
+})
 
 const theme = computed({
   get() {

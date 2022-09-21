@@ -129,14 +129,6 @@ input {
   vertical-align: middle;
 }
 
-.minutes {
-  text-align: right;
-}
-
-.seconds {
-  text-align: left;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
