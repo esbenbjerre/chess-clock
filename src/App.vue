@@ -80,7 +80,7 @@ const right = ref({
 let timer = 0
 
 function validTime(time: string): boolean {
-  return (/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/).test(time)
+  return (/^([0-9]{1,}):[0-5][0-9]$/).test(time)
 }
 
 const leftTime = computed({
